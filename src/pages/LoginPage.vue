@@ -106,8 +106,12 @@ export default {
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {
-        console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        try{
+          this.form.submitError = err.response.data.message;
+        }
+        catch{
+          this.$root.toast("Login", "NO CONNECTION", "danger");
+        }
       }
     },
     onLogin() {

@@ -306,11 +306,12 @@ export default {
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
-        if (err.response){
-          console.log(err.response);
+        try{
           this.form.submitError = err.response.data.message;
         }
-        else console.log("response not found")
+        catch{
+          this.$root.toast("Register", "NO CONNECTION", "danger");
+        }
       }
     },
     onRegister() {
