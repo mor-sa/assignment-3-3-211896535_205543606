@@ -42,7 +42,7 @@ import {
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
-// AXIOS?
+// AXIOS STUFF
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
@@ -70,11 +70,12 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
-// GLOBAL MAIN MEMORY?
+// GLOBAL MAIN MEMORY
+// SAVE THINGS FOR ALL THE PROJECT LIKE USERNAME,DOMAIN
 const shared_data = {
   // username: localStorage.username,
   serverDomain:"http://localhost:4000",
-  username: "hilla",
+  username: "ben",
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;

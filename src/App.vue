@@ -10,9 +10,7 @@
         </b-navbar-nav>
         <b-navbar-nav v-if="$root.store.username">
           <b-nav-item-dropdown right>
-          <template #button-content>
-            Favorites
-          </template>
+          <template #button-content>Favorites </template>
           <b-dropdown-item :to="{ name: 'favoriteMatches' }">Favorite matches</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'favoritePlayers' }">Favorite players</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'favoriteTeams' }">Favorite teams</b-dropdown-item>
@@ -28,9 +26,7 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
         <b-nav-item-dropdown right>
-          <template #button-content>
-            {{username}}
-          </template>
+          <template #button-content>{{username}} </template>
           <b-dropdown-item href="#" @click="Logout">Log Out</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -42,6 +38,7 @@
 
 <script>
 export default {
+  //MAIN APP COMPONENT
   name: "App",
   data() {
     return {
@@ -49,6 +46,7 @@ export default {
     }
   },
   methods: {
+    //LOGOUT
     async Logout() {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();

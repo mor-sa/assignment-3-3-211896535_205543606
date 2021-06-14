@@ -1,6 +1,7 @@
 import Main from "./pages/MainPage";
 import NotFound from "./pages/NotFoundPage";
 
+// DEFINE ALL ROUTES FOR NAV IN APP
 const routes = [
   {
     path: "/",
