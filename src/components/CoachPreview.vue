@@ -1,11 +1,11 @@
 <template>
   <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg" @click="moveToCoachPage" alt="Card image cap" >
+  <router-link :to="{ name: 'coach', params: { id: id }}"> <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg" alt="Card image cap" > </router-link>
   <div class="card-body">
     <h5 class="card-title">Coach preview</h5>
     <p class="card-text">some information about coach</p>
     <ul class="list-group list-group-flush">
-    <li class="list-group-item" @click="moveToCoachPage">coach name: {{fullName}}</li>
+    <li class="list-group-item" > <router-link :to="{ name: 'coach', params: { id: id }}"> coach name: {{fullName}} </router-link> </li>
     <li class="list-group-item">coach's team: {{teamName}}</li>
   </ul>
   </div>
@@ -37,9 +37,7 @@ export default {
     console.log("coach preview mounted")
   },
   methods:{
-      moveTocoachPage(){
-        this.$router.push("/coach/"+this.id)
-      }
+
   }
 };
 </script>

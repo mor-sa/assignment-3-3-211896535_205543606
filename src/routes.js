@@ -53,17 +53,17 @@ const routes = [
     component: () => import("./pages/LeagueMangementPage")
   },
   {
-    path: "/coach:id",
+    path: "/coach/:id",
     name: "coach",
     component: () => import("./pages/CoachPage")
   },
   {
-    path: "/player:id",
+    path: "/player/:id",
     name: "player",
     component: () => import("./pages/PlayerPage")
   },
   {
-    path: "/team:id",
+    path: "/team/:id",
     name: "team",
     component: () => import("./pages/TeamPage")
   },
