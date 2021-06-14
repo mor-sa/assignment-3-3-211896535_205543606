@@ -8,6 +8,7 @@
       <li> guest: {{ guestTeam }}</li>
       <li> date: {{ date }}</li>
       <li> time: {{ hour }}</li>
+      <li> stadium: {{stadium}}</li>
     </ul>
   </div>
 </template>
@@ -33,6 +34,10 @@ export default {
         required: true
       },
       hour: {
+        type: String,
+        required: true
+      },
+      stadium:{
         type: String,
         required: true
       }
