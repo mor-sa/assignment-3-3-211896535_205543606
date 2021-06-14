@@ -35,20 +35,13 @@ export default {
         height:"",
         weight:""
     }
-},
-  props: {
-      id: {
-        type: String,
-        required: true
-      }
-     
-  }, 
+}, 
 //   methods: {
 //     async updateCoach(){
 //       console.log("response");
 //       try {
 //         const response = await this.axios.get(
-//           this.$root.store.serverDomain+"coaches/"+this.id,
+//           this.$root.store.serverDomain+"players/"+id,
 //         );
 //         //should add everything
 //         const details = response.data.details;

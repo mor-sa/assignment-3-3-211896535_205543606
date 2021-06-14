@@ -22,7 +22,7 @@ export default {
       },
       teamName: {
         type: String,
-        required: true
+        //required: true
       }
   }, 
   mounted(){
