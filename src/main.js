@@ -2,14 +2,15 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-
 import routes from "./routes";
 import VueRouter from "vue-router";
+
+// ROUTING
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes
 });
-
+// IMPORTS
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -41,6 +42,7 @@ import {
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
+// AXIOS?
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
@@ -68,8 +70,10 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
+// GLOBAL MAIN MEMORY?
 const shared_data = {
   // username: localStorage.username,
+  serverDomain:"http://localhost:4000",
   username: "hilla",
   login(username) {
     localStorage.setItem("username", username);
@@ -93,6 +97,7 @@ new Vue({
     };
   },
   methods: {
+    // FOR DISPLAYING ALERTS!
     toast(title, content, variant = null, append = false) {
       this.$bvToast.toast(`${content}`, {
         title: `${title}`,

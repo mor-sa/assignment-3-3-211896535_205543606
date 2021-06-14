@@ -94,7 +94,7 @@ export default {
     async Login() {
       try {
         const response = await this.axios.post(
-          "https://localhost:3000/user/Login",
+          this.$root.store.serverDomain+"/login",
           {
             username: this.form.username,
             password: this.form.password
@@ -118,7 +118,6 @@ export default {
         return;
       }
       // console.log("login method go");
-
       this.Login();
     }
   }
