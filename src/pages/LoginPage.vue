@@ -100,22 +100,24 @@ export default {
             password: this.form.password
           }
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
+                // this.$root.loggedIn = true;
+        this.$root.toast("Login", response.data, "success");
         this.$root.store.login(this.form.username);
-        this.$router.push("/");
-      } catch (err) {
+        this.$router.push("/").catch(err => {});     
+      } 
+      //handle incorrect username or password somehow
+      catch (err) {
         try{
-          this.form.submitError = err.response.data.message;
+          //this.form.submitError = err.response.data.message;
+          this.$root.toast("Login", err.response.data, "warning");
         }
         catch{
-          this.$root.toast("Login", "NO CONNECTION", "danger");
+          this.$root.toast("Login", "something went wrong", "danger");
         }
       }
     },
     onLogin() {
-      // console.log("login method called");
+      console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {

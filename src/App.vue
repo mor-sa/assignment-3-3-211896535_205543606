@@ -42,8 +42,12 @@ export default {
   name: "App",
   data() {
     return {
-      username:this.$root.store.username
+      username:""
     }
+  },
+  mounted(){
+    console.log("here");
+    this.username=this.$root.store.username;
   },
   methods: {
     //LOGOUT
@@ -52,24 +56,24 @@ export default {
         this.$forceUpdate();
       });
        this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-      
-    //   try{
-    //   const response = await this.axios.post(
-    //       this.$root.store.serverDomain+"/logout",
-    //       {
-    //       }
-    //     );
-     
-    // }
-    // catch(err){
-    //   if (err.response){
-    //       console.log(err.response);
-    //       this.$root.toast("Logout", err.response, "Danger");
-    //     }
-    //     else console.log("response not found")
-    // }
+      this.$root.toast("Logout", "User logged out successfully", "success");  
+      try{
+      const response = await this.axios.post(
+          this.$root.store.serverDomain+"/logout",
+          {
+          }
+        );
+      //console.log("here");
     }
+    catch(err){
+      if (err.response){
+          console.log(err.response);
+          this.$root.toast("Logout", err.response, "Danger");
+        }
+        else console.log("response not found")
+    }
+    }
+    
   }
 };
 </script>

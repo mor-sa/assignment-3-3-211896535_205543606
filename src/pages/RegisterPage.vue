@@ -301,13 +301,15 @@ export default {
             password: this.form.password,
             email: this.form.email,
             image_url: this.form.imageUrl
-          }
-        );
+          })
+        this.$root.toast("Register", response.data, "success");
         this.$router.push("/login");
-        // console.log(response);
+        //console.log(response);
       } catch (err) {
         try{
-          this.form.submitError = err.response.data.message;
+          //console.log(err.response);
+          //this.form.submitError = err.response.data.message;
+          this.$root.toast("Register", err.response.data, "warning");
         }
         catch{
           this.$root.toast("Register", "NO CONNECTION", "danger");
