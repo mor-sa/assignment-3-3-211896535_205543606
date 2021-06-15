@@ -19,16 +19,16 @@
         <b-navbar-nav v-if="$root.store.username==='admin'">
           <b-nav-item :to="{ name: 'leagueMangement' }">League mangement</b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav class="ml-auto" v-if="!$root.store.username">
-          <b-navbar-brand> Hello guest </b-navbar-brand>
-          <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
-          <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
+        <b-navbar-nav class="ml-auto" v-if="$root.store.username">
+                  <b-nav-item-dropdown right>
+                  <template #button-content>{{$root.store.username}}</template>
+                  <b-dropdown-item href="#" @click="Logout">Log Out</b-dropdown-item>
+        </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
-        <b-nav-item-dropdown right>
-          <template #button-content>{{username}} </template>
-          <b-dropdown-item href="#" @click="Logout">Log Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+        <b-navbar-brand> Hello guest </b-navbar-brand>
+          <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+          <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -42,13 +42,19 @@ export default {
   name: "App",
   data() {
     return {
-      username:""
+      username:undefined
     }
   },
   mounted(){
     console.log("here");
     this.username=this.$root.store.username;
   },
+  // watch: {
+  //   '$root.store.username': function(username) {
+  //     this.username = username;
+  //     console.log('watch', username);
+  //   }
+  // },
   methods: {
     //LOGOUT
     async Logout() {

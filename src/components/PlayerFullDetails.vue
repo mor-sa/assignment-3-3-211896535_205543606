@@ -16,6 +16,8 @@
     <li class="list-group-item">player weight:{{weight}}</li>
   </ul>
   </div>
+    <b-button pill variant="outline-danger" @click="addToFavorites" :disabled="!alreadyInFavorites">add to favorites</b-button>
+
 </div>
 </template>
 
@@ -33,17 +35,16 @@ export default {
         birthDate:"",
         birthCountry:"",
         height:"",
-        weight:""
-    }
-    
+        weight:"",
+        alreadyInFavorites:false
+    } 
 },
 props:{
-   id: {
+  id: {
         type: String,
         required: true
       }
 },
-
   methods: {
     async updatePlayer(){
       console.log("response");
@@ -66,15 +67,34 @@ props:{
         console.log("error in update player full details")
         console.log(error);
       }
+    },
+    async checkIfInFavorites(){
+      this.alreadyInFavorites=true;
+    },
+    async addToFavorites(){
+      try {
+        const response = await this.axios.post(
+          this.$root.store.serverDomain+"/users/favoritePlayers",
+          {
+            playerId: this.id
+          }
+        );
+        console.log(response);
+        this.$root.toast("Favorite players", response.data, "success");
+      } 
+      catch (err) {
+        //this.form.submitError = err.response.data.message;
+        this.$root.toast("Favorite players", err.response.data, "warning"); 
+      }
     }
   }, 
   mounted(){
     console.log("full details player mounted");
     this.updatePlayer(); 
+    this.checkIfInFavorites();
   }
 };
 </script>
 
 <style>
-
 </style>
