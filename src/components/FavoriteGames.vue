@@ -3,10 +3,10 @@
     <GamePreview
       v-for="g in games"
       :id="g.id" 
-      :hostTeam="g.hostTeam" 
-      :guestTeam="g.guestTeam" 
-      :date="g.date" 
-      :hour="g.hour"
+      :hostTeam="g.home_team" 
+      :guestTeam="g.away_team" 
+      :date="g.match_date" 
+      :hour="g.match_hour"
       :stadium="g.stadium" 
       :key="g.id"></GamePreview>
   </div>
@@ -21,49 +21,31 @@ export default {
   }, 
   data() {
     return {
-      games: [
-        {
-          id:25,
-          hostTeam: "Maccabi Tel-Aviv",
-          guestTeam: "Hapoel Beer-Sheva",
-          date: "27/5/21",
-          hour: "20:00",  
-          stadium: "Sammi Offer"
-
-        },
-        {
-          id:39,
-          hostTeam: "Hapoel Tel-Aviv",
-          guestTeam: "Maccabi Haifa",
-          date: "29/5/21",
-          hour: "20:00",
-          stadium: "Sammi Offer"
-        }
-      ]
+      games: []
     };
   },
-  // methods: {
-  //   async updateGames(){
-  //     if (!$root.store.username) return undefined;
-  //     console.log("response");
-  //     try {
-  //       const response = await this.axios.get(
-  //         this.$root.store.serverDomain+"users/favoriteMatches",
-  //       );
-  //       const games = response.data;
-  //       this.games = [];
-  //       this.games.push(...games);
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log("error in update games")
-  //       console.log(error);
-  //     }
-  //   }
-  // }, 
-  // mounted(){
-  //   console.log("favorite games mounted");
-  //   this.updateGames(); 
-  // }
+  methods: {
+    async updateGames(){
+      //if (!$root.store.username) return undefined;
+      console.log("response");
+      try {
+        const response = await this.axios.get(
+          this.$root.store.serverDomain+"/users/favoriteMatches",
+        );
+        const games = response.data;
+        this.games = [];
+        this.games.push(...games);
+        console.log(games);
+      } catch (error) {
+        console.log("error in update games")
+        console.log(error);
+      }
+    }
+  }, 
+  mounted(){
+    console.log("favorite games mounted");
+    this.updateGames(); 
+  }
 };
 </script>
 

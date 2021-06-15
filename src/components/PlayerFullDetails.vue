@@ -35,28 +35,43 @@ export default {
         height:"",
         weight:""
     }
-}, 
-//   methods: {
-//     async updateCoach(){
-//       console.log("response");
-//       try {
-//         const response = await this.axios.get(
-//           this.$root.store.serverDomain+"players/"+id,
-//         );
-//         //should add everything
-//         const details = response.data.details;
-//         this.id=details.id;
-//         console.log(response);
-//       } catch (error) {
-//         console.log("error in update coach full details")
-//         console.log(error);
-//       }
-//     }
-//   }, 
-//   mounted(){
-//     console.log("full details coach mounted");
-//     this.updateCoach(); 
-//   }
+    
+},
+props:{
+   id: {
+        type: String,
+        required: true
+      }
+},
+
+  methods: {
+    async updatePlayer(){
+      console.log("response");
+      try {
+        const response = await this.axios.get(
+          this.$root.store.serverDomain+"/players/"+this.id,
+        );
+        const details = response.data;
+        this.fullName=details.player_full_name;
+        this.teamName=details.player_team;
+        this.imageUrl=details.player_image;
+        this.position=details.player_position;
+        this.commonName=details.player_common_name;
+        this.nationality=details.player_nationality;
+        this.birthDate=details.player_birthdate;
+        this.birthCountry=details.player_birthcountry;
+        this.height=details.player_height;
+        this.weight=details.player_weight;
+      } catch (error) {
+        console.log("error in update player full details")
+        console.log(error);
+      }
+    }
+  }, 
+  mounted(){
+    console.log("full details player mounted");
+    this.updatePlayer(); 
+  }
 };
 </script>
 

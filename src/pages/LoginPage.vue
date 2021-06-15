@@ -93,6 +93,7 @@ export default {
     },
     async Login() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
           this.$root.store.serverDomain+"/login",
           {
@@ -100,6 +101,8 @@ export default {
             password: this.form.password
           }
         );
+        //this.axios.defaults.withCredentials = false;
+        console.log(response);
                 // this.$root.loggedIn = true;
         this.$root.toast("Login", response.data, "success");
         this.$root.store.login(this.form.username);

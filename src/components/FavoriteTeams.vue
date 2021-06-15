@@ -19,39 +19,30 @@ export default {
   }, 
   data() {
     return {
-      teams: [
-        {
-          id:25,
-          teamName: "Maccabi"
-        },
-        {
-          id:22,
-          teamName: "Hapoel"
-        }
-      ]
+      teams: []
     };
   },
-//   methods: {
-//     async updateTeams(){
-//       console.log("response");
-//       try {
-//         const response = await this.axios.get(
-//           this.$root.store.serverDomain+"users/favoriteTeams",
-//         );
-//         const teams = response.data.teams;
-//         this.teams = [];
-//         this.teams.push(...teams);
-//         console.log(response);
-//       } catch (error) {
-//         console.log("error in update teams")
-//         console.log(error);
-//       }
-//     }
-//   }, 
-//   mounted(){
-//     console.log("favorite teams mounted");
-//     this.updateTeams(); 
-//   }
+  methods: {
+    async updateTeams(){
+      console.log("response");
+      try {
+        const response = await this.axios.get(
+          this.$root.store.serverDomain+"/users/favoriteTeams",
+        );
+        const teams = response.data;
+        this.teams = [];
+        this.teams.push(...teams);
+        console.log(response);
+      } catch (error) {
+        console.log("error in update teams")
+        console.log(error);
+      }
+    }
+  }, 
+  mounted(){
+    console.log("favorite teams mounted");
+    this.updateTeams(); 
+  }
 };
 </script>
 
