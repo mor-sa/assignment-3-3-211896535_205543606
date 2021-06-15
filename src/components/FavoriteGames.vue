@@ -44,12 +44,13 @@ export default {
   },
   // methods: {
   //   async updateGames(){
+  //     if (!$root.store.username) return undefined;
   //     console.log("response");
   //     try {
   //       const response = await this.axios.get(
   //         this.$root.store.serverDomain+"users/favoriteMatches",
   //       );
-  //       const games = response.data.games;
+  //       const games = response.data;
   //       this.games = [];
   //       this.games.push(...games);
   //       console.log(response);

@@ -1,6 +1,11 @@
 <template>
     <div>
-        <FavoritePlayers></FavoritePlayers>
+        <div v-if="$root.store.username">
+            <FavoritePlayers></FavoritePlayers>
+        </div>
+        <div v-else>
+            not a user
+        </div>
     </div>
 </template>
 <script>

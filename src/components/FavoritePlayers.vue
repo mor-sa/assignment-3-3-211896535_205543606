@@ -8,7 +8,7 @@
       :teamName="p.teamName" 
       :imageUrl="p.imageUrl" 
       :position="p.position" 
-      :key="p.id"></PlayerPreview>>
+      :key="p.id"></PlayerPreview>
   </div>
   </div>
 </template>

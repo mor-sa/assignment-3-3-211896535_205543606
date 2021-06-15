@@ -49,6 +49,21 @@ const routes = [
     component: () => import("./pages/FavoritePlayersPage")
   },
   {
+    path: "/leagueMangement/addMatch",
+    name: "addMatch",
+    component: () => import("./pages/AddMatchPage")
+  },
+  {
+    path: "/leagueMangement/addResult",
+    name: "addResult",
+    component: () => import("./pages/AddResultPage")
+  },
+  {
+    path: "/leagueMangement/addEventCalendar",
+    name: "addEventCalendar",
+    component: () => import("./pages/AddEventCalendarPage")
+  },
+  {
     path: "/leagueMangement",
     name: "leagueMangement",
     component: () => import("./pages/LeagueMangementPage")

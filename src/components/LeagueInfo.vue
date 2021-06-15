@@ -8,24 +8,30 @@
     >
       <b-card-title>{{leagueName}}</b-card-title>
       <b-card-text>
-        Season: {{ season }}
+        Season: {{ seasonName }}
         <br/>
-        Stage: {{ stage }}
+        Stage: {{ stageName }}
       </b-card-text>
-      <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
   </div>
 </template>
 
 <script>
 export default {
- data() {
-    return {
-      leagueName: "superliga", 
-      season: "season", 
-      stage: "stage"
-    };
-  },
+ props: {
+      leagueName: {
+        type: String,
+        required: true
+      },
+      seasonName: {
+        type: String,
+        required: true
+      },
+      stageName: {
+        type: String,
+        required: true
+      },
+ }
 }
 </script>
 

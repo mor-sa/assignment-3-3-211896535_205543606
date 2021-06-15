@@ -9,7 +9,7 @@
           <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="$root.store.username">
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown>
           <template #button-content>Favorites </template>
           <b-dropdown-item :to="{ name: 'favoriteMatches' }">Favorite matches</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'favoritePlayers' }">Favorite players</b-dropdown-item>

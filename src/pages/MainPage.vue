@@ -1,9 +1,27 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
-    <LoginPage v-if="!$root.store.username"></LoginPage>
-    <FavoriteGames v-else></FavoriteGames>
-    <LeagueInfo></LeagueInfo>
+    <h1 class="title" center>Main Page</h1>
+    <div class="row">
+          <div class="col">
+              <LeagueInfo
+                :leagueName = leagueDetails.leagueName
+                :seasonName = leagueDetails.seasonName
+                :stageName = leagueDetails.stageName>
+              </LeagueInfo>
+              <GamePreview 
+                :id=closetGame.id 
+                :hostTeam=closetGame.hostTeam
+                :guestTeam=closetGame.guestTeam 
+                :date=closetGame.date 
+                :hour=closetGame.hour
+                :stadium=closetGame.stadium>
+              </GamePreview>
+          </div>
+          <div class="col">
+              <LoginPage v-if="!$root.store.username"></LoginPage>
+              <FavoriteGames v-else></FavoriteGames>
+          </div>
+    </div>
   </div>
 </template>
 
@@ -11,25 +29,42 @@
 import LeagueInfo from "../components/LeagueInfo";
 import FavoriteGames from "../components/FavoriteGames";
 import LoginPage from "../pages/LoginPage";
+import GamePreview from '../components/GamePreview.vue';
 export default {
   components: {
     LeagueInfo, 
     LoginPage, 
-    FavoriteGames
-  }
+    FavoriteGames,
+    GamePreview
+  },
+  data() {
+    return {
+      closetGame:{
+        id:0,
+        hostTeam:"efwerew",
+        guestTeam:"effefe",
+        date:"afsaf",
+        hour:"fsafs",
+        stadium:"safasf"
+      },
+      leagueDetails:{
+        leagueName:"superLiga",
+        seasonName:"ourSeason",
+        stageName:"ourStage"
+      },
+      favoriteGames:[
+      ]
+    }
+  },
+  // mounted:{
+
+  // },
+  // methods:{
+
+  // }
 };
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
-  margin: 10px 0 10px;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
+
 </style>
