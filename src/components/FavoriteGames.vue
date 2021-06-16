@@ -1,3 +1,4 @@
+//Favorite game page
 <template>
   <div>
     <GamePreview

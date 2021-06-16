@@ -1,3 +1,4 @@
+// team page, works good!
 <template>
     <div>
         <TeamFullDetails :id='$route.params.id'></TeamFullDetails>

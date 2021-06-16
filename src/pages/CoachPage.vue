@@ -1,3 +1,4 @@
+// coach page, works good!
 <template>
     <div>
         <CoachFullDetails :id='$route.params.id'></CoachFullDetails>

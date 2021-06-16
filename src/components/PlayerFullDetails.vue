@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg"  alt="Card image cap" >
+  <img src=imageUrl class="card-img-top" alt="Card image cap" >
   <div class="card-body">
     <h5 class="card-title">player Full details</h5>
     <p class="card-text">some information about player</p>
@@ -92,6 +92,7 @@ props:{
     console.log("full details player mounted");
     this.updatePlayer(); 
     this.checkIfInFavorites();
+    //document.getElementById("player-img").src=this.player_image;
   }
 };
 </script>

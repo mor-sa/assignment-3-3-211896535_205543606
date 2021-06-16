@@ -1,3 +1,4 @@
+// a preview of past game contain all details, 
 <template>
   <div class="game-preview">
     <div :title="id" class="game-title">
@@ -73,8 +74,8 @@ export default {
 <style>
 .game-preview {
   display: inline-block;
-  width: 250px;
-  height: 200px;
+  width: 400px;
+  height: 300px;
   position: relative;
   margin: 10px 10px;
   border-style: solid;
@@ -86,7 +87,7 @@ export default {
 .game-preview .game-title {
   text-align: center;
   text-transform: uppercase;
-  color:  rgb(111, 197, 157);
+  color:  rgb(183, 0, 255);
 }
 
 .game-preview .game-content {

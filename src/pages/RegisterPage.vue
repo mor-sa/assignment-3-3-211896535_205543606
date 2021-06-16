@@ -1,3 +1,4 @@
+// register page works good!
 <template>
   <div class="container">
     <h1 class="title">Register</h1>

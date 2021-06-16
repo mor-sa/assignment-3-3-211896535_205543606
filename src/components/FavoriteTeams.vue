@@ -1,3 +1,4 @@
+// favorite teams page should fix also in server side or something
 <template>
   <div>
       <div class="card-group">

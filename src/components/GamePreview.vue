@@ -1,3 +1,4 @@
+// a preview for future games, works
 <template>
   <div class="game-preview">
     <div :title="id" class="game-title">

@@ -1,3 +1,4 @@
+// player preview component works
 <template>
   <div class="card" style="width: 18rem;">
   <router-link :to="{ name: 'player', params: { id: id }}">  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg"  alt="Card image cap" > </router-link>

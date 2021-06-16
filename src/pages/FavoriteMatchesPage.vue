@@ -1,3 +1,4 @@
+// favorite games page, works good!
 <template>
     <div>
         <div v-if="$root.store.username">

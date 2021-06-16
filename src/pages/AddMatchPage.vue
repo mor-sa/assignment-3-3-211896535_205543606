@@ -1,3 +1,4 @@
+// add match page for league mangement, i made the most should only connect to server!
 <template>
   <div class="container">
     <h1 class="title">Add Match</h1>

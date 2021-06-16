@@ -1,3 +1,4 @@
+// main page should arrang it
 <template>
   <div class="container">
     <h1 class="title" center>Main Page</h1>
@@ -59,11 +60,11 @@ export default {
       favoriteGames:[]
     }
   },
-  // watch: {
-  //   '$root.store.username': function() {
-  //     this.update3Favorite();
-  //   }
-  // },
+  watch: {
+    '$root.store.username': function() {
+      this.update3Favorite();
+    }
+  },
   methods: {
     async upateLeagueDetails(){
       try {

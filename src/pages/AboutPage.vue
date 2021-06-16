@@ -1,3 +1,4 @@
+// About page for example, should design at the end
 <template>
 <div>
 <div class="about-section">

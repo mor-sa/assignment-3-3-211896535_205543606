@@ -1,3 +1,4 @@
+//stage match page, works good just design
 <template>
     <div class="container">
     <h1 class="title" center>Stage Page</h1>
@@ -80,10 +81,10 @@ methods: {
       }
     }
   }, 
-  async mounted(){
+mounted(){
     console.log("future games mounted");
-    await this.updateFutureGames(); 
-    await this.updatePastGames();
+    this.updateFutureGames(); 
+    this.updatePastGames();
   }
 }
 </script>

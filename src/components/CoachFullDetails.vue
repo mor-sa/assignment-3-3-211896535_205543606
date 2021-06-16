@@ -1,6 +1,7 @@
+// coach full details component should design and fix image
 <template>
   <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg"  alt="Card image cap" >
+  <img class="card-img-top" src=imageUrl  alt="Card image cap" >
   <div class="card-body">
     <h5 class="card-title">Coach Full details</h5>
     <p class="card-text">some information about coach</p>
@@ -47,13 +48,11 @@ props:{
         this.fullName=details.coach_full_name;
         this.teamName=details.coach_team;
         this.imageUrl=details.coach_image;
-        //this.position=details.player_position;
         this.commonName=details.coach_common_name;
         this.nationality=details.coach_nationality;
         this.birthDate=details.coach_birthdate;
         this.birthCountry=details.coach_birthcountry;
-        //this.height=details.player_height;
-        //this.weight=details.player_weight;
+
       } catch (error) {
         console.log("error in update coach full details")
         console.log(error);

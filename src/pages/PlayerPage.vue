@@ -1,3 +1,4 @@
+// player page works good!
 <template>
     <div>
         <PlayerFullDeatils :id='$route.params.id'></PlayerFullDeatils>

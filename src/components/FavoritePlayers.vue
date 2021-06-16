@@ -1,3 +1,4 @@
+// favorite player page 
 <template>
   <div>
       <div class="card-group">

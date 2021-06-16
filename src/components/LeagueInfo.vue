@@ -1,3 +1,4 @@
+// league inforamtion componnet
 <template>
     <div class="league-preview">
       <b-card
@@ -45,13 +46,13 @@ export default {
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;
-  border-color:rgb(44, 89, 116);
+  border-color:rgb(0, 157, 255);
 }
 
 .league-preview .league-title {
   text-align: center;
   text-transform: uppercase;
-  color:  rgb(111, 155, 197);
+  color:  rgb(255, 0, 0);
 }
 
 .league-preview .league-content {
