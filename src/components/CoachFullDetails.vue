@@ -1,7 +1,7 @@
 // coach full details component should design and fix image
 <template>
   <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src=imageUrl  alt="Card image cap" >
+  <img class="card-img-top" :src=imageUrl  alt="Card image cap" >
   <div class="card-body">
     <h5 class="card-title">Coach Full details</h5>
     <p class="card-text">some information about coach</p>

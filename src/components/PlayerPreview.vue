@@ -1,7 +1,7 @@
 // player preview component works
 <template>
   <div class="card" style="width: 18rem;">
-  <router-link :to="{ name: 'player', params: { id: id }}">  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg"  alt="Card image cap" > </router-link>
+  <router-link :to="{ name: 'player', params: { id: id }}">  <img class="card-img-top" :src=imageUrl  alt="Card image cap" > </router-link>
   <div class="card-body">
     <h5 class="card-title">Player preview</h5>
     <p class="card-text">some information about player</p>

@@ -1,7 +1,7 @@
 // coach preview should design and fix image
 <template>
   <div class="card" style="width: 18rem;">
-  <router-link :to="{ name: 'coach', params: { id: id }}"> <img class="card-img-top" src="imageUrl" alt="Card image cap" > </router-link>
+  <router-link :to="{ name: 'coach', params: { id: id }}"> <img class="card-img-top" :src=imageUrl alt="Card image cap" > </router-link>
   <div class="card-body">
     <h5 class="card-title">Coach preview</h5>
     <p class="card-text">some information about coach</p>

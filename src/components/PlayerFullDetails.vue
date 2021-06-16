@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 18rem;">
-  <img src=imageUrl class="card-img-top" alt="Card image cap" >
+  <img :src=imageUrl class="card-img-top" alt="Card image cap" >
   <div class="card-body">
     <h5 class="card-title">player Full details</h5>
     <p class="card-text">some information about player</p>
