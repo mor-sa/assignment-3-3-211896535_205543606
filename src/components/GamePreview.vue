@@ -9,6 +9,8 @@
       <li> date: {{ date }}</li>
       <li> time: {{ hour }}</li>
       <li> stadium: {{stadium}}</li>
+      <li> referee: {{referee}}</li>
+
     </ul>
   </div>
 </template>
@@ -40,6 +42,9 @@ export default {
       stadium:{
         type: String,
         required: true
+      },
+      referee:{
+        required: true
       }
   }, 
   mounted(){
@@ -51,8 +56,8 @@ export default {
 <style>
 .game-preview {
   display: inline-block;
-  width: 250px;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   position: relative;
   margin: 10px 10px;
   border-style: solid;

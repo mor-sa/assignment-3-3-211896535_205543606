@@ -5,15 +5,15 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
         <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
-          <b-nav-item :to="{ name: 'stageMatches' }">Stage Matches</b-nav-item>
+          <b-nav-item :to="{ name: 'stageMatches' }">Stage Games</b-nav-item>
           <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="$root.store.username">
           <b-nav-item-dropdown>
-          <template #button-content>Favorites </template>
-          <b-dropdown-item :to="{ name: 'favoriteMatches' }">Favorite matches</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'favoritePlayers' }">Favorite players</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'favoriteTeams' }">Favorite teams</b-dropdown-item>
+          <template #button-content>Personal </template>
+          <b-dropdown-item :to="{ name: 'favoriteMatches' }">My Games</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'favoritePlayers' }">My Players</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'favoriteTeams' }">My Teams</b-dropdown-item>
         </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav v-if="$root.store.username==='admin'">

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <TeamPreview :id='$route.params.id'></TeamPreview>
+        <TeamFullDetails :id='$route.params.id'></TeamFullDetails>
     </div>
 </template>
 <script>
-import TeamPreview from '../components/TeamPreview.vue'
+import TeamFullDetails from '../components/TeamFullDetails.vue'
 export default {
-  components: { TeamPreview },
+  components: { TeamFullDetails },
     name: 'TeamPage'
 }
 </script>
