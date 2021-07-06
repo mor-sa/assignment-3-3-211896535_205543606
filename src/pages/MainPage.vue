@@ -89,7 +89,7 @@ export default {
         console.log(error);
       }
     }
-  }, 
+  },
   mounted(){
     console.log("league main pagemounted");
     this.upateLeagueDetails(); 

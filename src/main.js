@@ -12,7 +12,9 @@ const router = new VueRouter({
 });
 // IMPORTS
 import Vuelidate from "vuelidate";
+import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
   FormGroupPlugin,
@@ -25,7 +27,9 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  BootstrapVue,
+  BootstrapVueIcons
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -38,7 +42,9 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin, 
-  InputGroupPlugin
+  InputGroupPlugin,
+  BootstrapVue,
+  BootstrapVueIcons
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

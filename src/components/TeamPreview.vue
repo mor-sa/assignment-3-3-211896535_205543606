@@ -24,6 +24,9 @@ export default {
       teamName: {
         type: String,
         //required: true
+      },
+      teamLogo:{
+        type: String,
       }
   }, 
   mounted(){
