@@ -96,8 +96,10 @@ html {
 }
 
 .img-us{
+  margin:10px;
   width: 250px;
   height: 250px;
+  border-radius: 50%;
 }
 /* #info-us{
   justify-content: center;
