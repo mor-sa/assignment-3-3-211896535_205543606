@@ -16,22 +16,22 @@
     Frontend: Vue.js
     <br>
   </p>
-  <h4>Prior Projects</h4>
+  <h4>Previous Projects</h4>
   <p> Pacman Game: Javascript, Jquery, HTML and CSS
     <br>
-    <a href="https://github.com/Web-Development-Environments-2021/Assignment2_211896535_205543606">Pacman GitHub</a>
+    <a :href=pacmanGit>Pacman GitHub</a>
     <br>
-    <a href="https://web-development-environments-2021.github.io/Assignment2_211896535_205543606/">Pacman Website</a>
+    <a :href=pacmanWeb>Pacman Website</a>
   </p>
   <p> 3rd Genretion Website: Jquery, HTML and CSS
     <br>
-    <a href="https://github.com/Web-Development-Environments-2021/205543606">Mor's 3rd Gen GitHub</a>
+    <a :href=mor3rdGit>Mor's 3rd Gen GitHub</a>
     <br>
-    <a href="https://web-development-environments-2021.github.io/205543606/">Mor's 3rd Gen Website: Ruby Rivlin</a>
+    <a :href=mor3rdWeb>Mor's 3rd Gen Website: Ruby Rivlin</a>
     <br>
-    <a href="https://github.com/Web-Development-Environments-2021/211896535">Ben's 3rd Gen GitHub</a>
+    <a :href=ben3rdGit>Ben's 3rd Gen GitHub</a>
     <br>
-    <a href="https://web-development-environments-2021.github.io/211896535/">Ben's 3rd Gen Website: Meme</a>
+    <a :href=ben3rdWeb>Ben's 3rd Gen Website: Meme</a>
   </p>
 </div>
 
@@ -70,7 +70,13 @@ export default {
         benImg:"https://i.imgur.com/eI7yOiN.jpeg",
         morImg:"https://i.imgur.com/5Uzdegu.jpeg",
         benMail:"benmarga@post.bgu.ac.il",
-        morMail:"morlisa@post.bgu.ac.il"
+        morMail:"morlisa@post.bgu.ac.il",
+        pacmanGit:"https://github.com/Web-Development-Environments-2021/Assignment2_211896535_205543606",
+        pacmanWeb:"https://web-development-environments-2021.github.io/Assignment2_211896535_205543606/",
+        mor3rdGit:"https://github.com/Web-Development-Environments-2021/205543606",
+        mor3rdWeb:"https://web-development-environments-2021.github.io/205543606/",
+        ben3rdGit:"https://github.com/Web-Development-Environments-2021/211896535",
+        ben3rdWeb:"https://web-development-environments-2021.github.io/211896535/"
       }
     },
 }

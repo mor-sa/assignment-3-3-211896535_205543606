@@ -1,7 +1,7 @@
 // a preview for future games, works
 <template>
   <div class="game-preview">
-    <b-button id="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add to Favorites</b-button>
+    <b-button id="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Favorite</b-button>
     <div :title="id" class="game-title">
       <b>Game Id:</b> {{ id }}
     </div>
@@ -152,18 +152,21 @@ export default {
   .game-preview {
     background-color:rgba(255, 255, 255, 0.562);
     display: inline-block;
-    width: 300px;
+    width: 350px;
     height: max-content;
     position: relative;
     margin: 10px 10px;
     list-style: none;
     text-align: center;
+    border: cadetblue;
+    border-style: solid;
   }
 
   #fav-btn{
     position: absolute;
     right: 0;
     text-align: right;
+    width: 25%;
   }
 
   .game-content{

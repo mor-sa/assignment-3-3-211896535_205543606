@@ -95,16 +95,15 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
   },
+  // save the last search
   saveLastSearch(last_search){
     localStorage.setItem("lastSearch_query",last_search.query);
     localStorage.setItem("lastSearch_type",last_search.type);
     this.lastSearch = last_search;
     console.log("last search saved, search query: "+last_search.query +" type: "+last_search.type);
   },
+  // Get last saved search
   getLastSearch(){
-    // console.log("TRYING TO DO");
-    // console.log(this.username);
-    // console.log(localStorage.getItem('lastSearch'));
     if(this.username && localStorage.getItem('lastSearch_query') && localStorage.getItem('lastSearch_type')){
       this.lastSearch.query = localStorage.getItem('lastSearch_query');
       this.lastSearch.type = localStorage.getItem('lastSearch_type');
@@ -127,13 +126,6 @@ const shared_data = {
       console.log(error);
     }
   },
-  // Check if a user is logged in
-  getLoggedInUser(){
-    if(localStorage.getItem('username')&& !this.username){
-      this.username = localStorage.getItem('username');
-    }
-    return;
-  }
 };
 console.log(shared_data);
 
@@ -155,11 +147,18 @@ new Vue({
         appendToast: append,
         autoHideDelay: 3000
       });
-    }
+    },
+    // Check if a user is logged in
+    getLoggedInUser(){
+      if(localStorage.getItem('username')&& !this.username){
+        this.username = localStorage.getItem('username');
+      }
+    return;
+  }
   },
   mounted(){
     this.getLoggedInUser();
-    this.getLastSearch();
+    this.$root.store.getLastSearch();
   },
   render: (h) => h(App)
 }).$mount("#app");

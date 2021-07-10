@@ -1,7 +1,7 @@
 <template>
  <div class="card">
   <img class="card-img-top" :src=teamLogo alt="Card image cap">
-  <b-button class="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add to Favorites</b-button>
+  <b-button class="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Favorite</b-button>
   <div class="card-body">
     <h5 class="card-title">{{teamName}}</h5>
     <ul class="list-group list-group-flush">
