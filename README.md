@@ -1,8 +1,10 @@
 # assignment-3-3-211896535_205543606
 assignment-3-3-211896535_205543606 created by GitHub Classroom
 
-League Management Webiste by Ben Margalit and Mor Saranga
+League Management Webiste by and Mor Saranga
 
+Ben Margalit - 211896535
+Mor Saranga - 205543606
 ### Overview
 
 This website is a SPA Application built for our web development course. We used Vue.js for the frontend.
