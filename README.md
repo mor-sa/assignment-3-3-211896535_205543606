@@ -21,3 +21,5 @@ and if not it shows a login section.
 * **About** - a page that describes us and our previous projects.
 * **Favorites** - pages that shows the connected users it's favorite games, players and teams.
 * **League Management** - a page that allows an administrator user to add new games to the system, add an event to a game, and add a result to a game.
+
+![image](https://user-images.githubusercontent.com/62620992/125174818-9689ea00-e1d0-11eb-8bb0-7e1668ce581d.png)
