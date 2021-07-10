@@ -8,6 +8,9 @@ League Management Webiste by Ben Margalit and Mor Saranga
 This website is a SPA Application built for our web development course. We used Vue.js for the frontend.
 The website is built according to the specification document given by course staff.
 
+![image](https://user-images.githubusercontent.com/62620992/125174376-c5529100-e1cd-11eb-8398-ca19a3381e04.png)
+
+
 ## What's in the site?
 * **Main** - a page that contains details about the league, next game in the league, if a user is connected it shows the top 3 favorite games he saved, 
 and if not it shows a login section.
