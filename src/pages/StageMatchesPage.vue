@@ -4,6 +4,7 @@
       <h1 class="title" center>Stage Page</h1>
       <div class="row">
         <div id="matches-container">
+          <h4>All Games in the league</h4>
           <div id="future-games" class="col">
             <span>FUTURE GAMES:</span>
             <br>

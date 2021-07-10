@@ -6,7 +6,7 @@
   <h4>Ben Margalit & Mor Saranga</h4>
   <p>Third year Software and Information Systems Engineering students in Ben Gurion University.
   <br>
-  This is a League Management Website we've built for our web course we took during our academic studies.</p>
+  This is a League Management Website which is a SPA Application we've built for our web course we took during our academic studies.</p>
   <p>This League Management Website had 3 parts:
     <br>
     API: written using Swagger API in YAML
@@ -17,7 +17,7 @@
     <br>
   </p>
   <h4>Prior Projects</h4>
-  <p> Pacman: Javascript, Jquery, HTML and CSS
+  <p> Pacman Game: Javascript, Jquery, HTML and CSS
     <br>
     <a href="https://github.com/Web-Development-Environments-2021/Assignment2_211896535_205543606">Pacman GitHub</a>
     <br>
@@ -128,7 +128,7 @@ html {
 }
 
 .container {
-  padding: 0 16px;
+  padding: 0 0px;
 }
 
 .container::after, .row::after {

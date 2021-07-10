@@ -1,6 +1,6 @@
 // favorite Teams page, works good!
 <template>
-    <div>
+    <div class="container">
         <h1 id="title">Favorite Teams</h1>
         <div v-if="$root.store.username">
         <FavoriteTeams></FavoriteTeams>

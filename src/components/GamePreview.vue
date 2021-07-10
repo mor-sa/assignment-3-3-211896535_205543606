@@ -54,12 +54,25 @@ export default {
     return {
       hostTeamName: this.hostTeam,
       awayTeamName: this.guestTeam,
-      dateFormatted: undefined,
-      hourFormatted: undefined,
+      //dateFormatted: undefined,
+      //hourFormatted: undefined,
       alreadyInFavorites: false
     }
   },
   computed:{
+    dateFormatted: function(){
+      let splitted_hour = this.hour.split("T");
+      let splitted_hour_to_date = splitted_hour[0].split("-");
+      let year = splitted_hour_to_date[0];
+      let month = splitted_hour_to_date[1];
+      let day = splitted_hour_to_date[2];
+      return day + "/" + month + "/" + year;
+    },
+    hourFormatted: function(){
+      let splitted_hour = this.hour.split("T");
+      let splitted_time = splitted_hour[1].split(":");
+      return splitted_time[0]+":"+splitted_time[1];
+    }
   },
   methods:{
     // Format the date and hour
@@ -129,8 +142,7 @@ export default {
   },
   mounted(){
     this.checkIfDisableFavorites();
-    this.getTeamsNames();
-    this.formatDateTime();
+    // this.getTeamsNames();
     console.log("game preview mounted");
   } 
 };
@@ -140,11 +152,12 @@ export default {
   .game-preview {
     background-color:rgba(255, 255, 255, 0.562);
     display: inline-block;
-    width: 350px;
+    width: 300px;
     height: max-content;
     position: relative;
     margin: 10px 10px;
     list-style: none;
+    text-align: center;
   }
 
   #fav-btn{

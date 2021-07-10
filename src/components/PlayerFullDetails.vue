@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img :src=imageUrl class="card-img-top" alt="Card image cap">
-    <b-button id="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add To Favorites</b-button>
+    <b-button class="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add To Favorites</b-button>
     <div class="card-body">
       <h5 class="card-title">{{fullName}}</h5>
       <ul class="list-group list-group-flush">
@@ -123,6 +123,7 @@ props:{
     display: 'flex';
     align-items: center;
     justify-content: center;
+    text-align: center;
   }
   .card-img-top{
     max-width: 200px;

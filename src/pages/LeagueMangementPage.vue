@@ -1,10 +1,15 @@
 <template>
 <div>
 <div v-if="$root.store.username!=admin" class="container">
-    <h1 class="title" center>Main Page</h1>
-        <div class="row">
-            PAST games:
-            <GameFullDetails
+    <h1 class="title" center>League Management</h1>
+    <router-link :to="{ name: 'addMatch'}"><b-button pill variant="primary" >Add Game</b-button></router-link>
+      <router-link :to="{ name: 'addResult'}"><b-button pill variant="primary">Add Result</b-button></router-link>
+      <router-link :to="{ name: 'addEventCalendar'}"><b-button pill variant="primary">Add Events</b-button></router-link>
+    <h3>Games</h3>
+    <div class="row">
+        PAST GAMES:
+        <div>
+          <GameFullDetails
             v-for="g in pastGames"
             :id="g.match.match_id" 
             :hostTeam="g.match.home_team"
@@ -16,29 +21,29 @@
             :result ="g.match.result"
             :events ="g.match_events"
             :key="g.match.id">
-            </GameFullDetails>
-        </div>
-    <div class="row">
-         FUTURE GAMES:
-            <GamePreview
-            v-for="g in futureGames"
-            :id="g.match_id" 
-            :hostTeam="g.home_team"
-            :guestTeam="g.away_team" 
-            :date="g.match_date"
-            :hour="g.match_hour"
-            :stadium="g.stadium"
-            :referee="g.referee_id"
-            :key="g.id">
-            </GamePreview>
-                </div>
-        <div class="row">
-            <router-link :to="{ name: 'addMatch'}"><b-button pill variant="primary" >Add match</b-button></router-link>
-            <router-link :to="{ name: 'addResult'}"><b-button pill variant="primary">Add Result</b-button></router-link>
-            <router-link :to="{ name: 'addEventCalendar'}"><b-button pill variant="primary">Add Events</b-button></router-link>
+          </GameFullDetails>
         </div>
     </div>
-    <div v-else> NOT AN ADMIN 
+    <div class="row">
+      FUTURE GAMES:
+      <div>
+        <GamePreview
+          v-for="g in futureGames"
+          :id="g.match_id" 
+          :hostTeam="g.home_team"
+          :guestTeam="g.away_team" 
+          :date="g.match_date"
+          :hour="g.match_hour"
+          :stadium="g.stadium"
+          :referee="g.referee_id"
+          :key="g.id">
+        </GamePreview>
+      </div>
+    </div>
+    <div class="row">
+    </div>
+    </div>
+    <div v-else> NOT AN ADMIN
 </div>
 </div>
 </template>

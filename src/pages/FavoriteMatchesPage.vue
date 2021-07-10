@@ -1,6 +1,6 @@
 // favorite games page, works good!
 <template>
-    <div>
+    <div class="container">
         <h1 id="title">Favorite Games</h1>
         <div v-if="$root.store.username">
             <FavoriteGames></FavoriteGames>

@@ -57,12 +57,12 @@
         label="Event Hour:"
         label-for="eventHour"
       >
-        <b-form-input
+        <b-form-timepicker
           id="eventHour"
           type="text"
           v-model="$v.form.eventHour.$model"
           :state="validateState('eventHour')"
-        ></b-form-input>
+        ></b-form-timepicker>
         <b-form-invalid-feedback>
           event hour is required
         </b-form-invalid-feedback>
@@ -161,6 +161,11 @@ export default {
       },
     }
   },
+  computed:{
+    EventHourFormatted: function(){
+      return this.form.eventDate+"T"+this.form.eventHour
+    }
+  },
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -174,7 +179,7 @@ export default {
             match_id: parseInt(this.form.matchId),
             event_id: parseInt(this.form.eventId),
             event_date: this.form.eventDate,
-            event_hour: this.form.eventHour,
+            event_hour: this.EventHourFormatted,
             event_minute: parseInt(this.form.eventMinute),
             event_description: this.form.eventDescription,
           },{withCredentials: true}

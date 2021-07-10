@@ -6,7 +6,7 @@
       <b-form-group
         id="input-group-matchId"
         label-cols-sm="3"
-        label="match Id:"
+        label="Match Id:"
         label-for="matchId"
       >
         <b-form-input
@@ -15,9 +15,12 @@
           type="text"
           :state="validateState('matchId')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          matchId is required
+        <b-form-invalid-feedback v-if="!$v.form.matchId.$model.required">
+          Match Id is required
         </b-form-invalid-feedback>
+        <!-- <b-form-invalid-feedback v-else-if="!$v.form.matchId.$model.decimal">
+          match id should be a number
+        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <b-form-group
@@ -33,7 +36,7 @@
           :state="validateState('matchDate')"
         ></b-form-datepicker>
         <b-form-invalid-feedback>
-          match date is required
+          Match date is required
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -43,12 +46,12 @@
         label="Match Hour:"
         label-for="matchHour"
       >
-        <b-form-input
+        <b-form-timepicker
           id="matchHour"
           type="text"
           v-model="$v.form.matchHour.$model"
           :state="validateState('matchHour')"
-        ></b-form-input>
+        ></b-form-timepicker>
         <b-form-invalid-feedback>
           match hour is required
         </b-form-invalid-feedback>
@@ -57,7 +60,7 @@
       <b-form-group
         id="input-group-homeTeam"
         label-cols-sm="3"
-        label="home team:"
+        label="Home Team Id:"
         label-for="homeTeam"
       >
         <b-form-input
@@ -66,15 +69,18 @@
           v-model="$v.form.homeTeam.$model"
           :state="validateState('homeTeam')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          home team is required
+        <b-form-invalid-feedback v-if="!$v.form.homeTeam.$model.required">
+          home team id is required
         </b-form-invalid-feedback>
+        <!-- <b-form-invalid-feedback v-else-if="!$v.form.homeTeam.$model.decimal">
+          home team id should be a number
+        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <b-form-group
         id="input-group-awayTeam"
         label-cols-sm="3"
-        label="away team:"
+        label="Away Team Id:"
         label-for="awayTeam"
       >
         <b-form-input
@@ -83,15 +89,18 @@
           v-model="$v.form.awayTeam.$model"
           :state="validateState('awayTeam')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          away team is required
+        <b-form-invalid-feedback v-if="!$v.form.awayTeam.$model.required">
+          away team id is required
         </b-form-invalid-feedback>
+        <!-- <b-form-invalid-feedback v-else-if="!$v.form.awayTeam.$model.decimal">
+          away team id should be a number
+        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <b-form-group
         id="input-group-matchReferee"
         label-cols-sm="3"
-        label="match referee:"
+        label="Referee Id:"
         label-for="matchReferee"
       >
         <b-form-input
@@ -100,15 +109,18 @@
           v-model="$v.form.matchReferee.$model"
           :state="validateState('matchReferee')"
         ></b-form-input>
-        <b-form-invalid-feedback>
-          match referee is required
-        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.matchReferee.$model.required">
+            Referee id is required
+          </b-form-invalid-feedback>
+          <!-- <b-form-invalid-feedback v-else-if="!$v.form.matchReferee.$model.decimal">
+            Referee id should be a number
+          </b-form-invalid-feedback> -->
       </b-form-group>
 
       <b-form-group
         id="input-group-matchStadium"
         label-cols-sm="3"
-        label="match stadium:"
+        label="Stadium:"
         label-for="matchStadium"
       >
         <b-form-input
@@ -163,7 +175,7 @@ export default {
   validations: {
     form: {
       matchId: {
-        required, 
+        required
       },
       matchDate: {
         required
@@ -172,17 +184,22 @@ export default {
         required
       },
       homeTeam: {
-        required
+        required,
       },
       awayTeam: {
-        required
+        required,
       },
       matchReferee: {
-        required
+        required,
       },
       matchStadium: {
         required
       }
+    }
+  },
+  computed:{
+    matchHourFormatted: function(){
+      return this.form.matchDate+"T"+this.form.matchHour
     }
   },
   methods: {
@@ -197,7 +214,7 @@ export default {
           {
             match_id: parseInt(this.form.matchId),
             match_date: this.form.matchDate,
-            match_hour: this.form.matchHour,
+            match_hour: this.matchHourFormatted,
             home_team: this.form.homeTeam,
             away_team: this.form.awayTeam,
             referee_id: parseInt(this.form.matchReferee),

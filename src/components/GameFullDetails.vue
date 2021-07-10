@@ -73,44 +73,58 @@ export default {
     return {
       hostTeamName: this.hostTeam,
       awayTeamName: this.guestTeam,
-      dateFormatted: undefined,
-      hourFormatted: undefined,
       alreadyInFavorites: false
     }
   },
-  methods:{
-    // Format the date and hour
-    formatDateTime(){
+  computed:{
+    dateFormatted: function(){
       let splitted_hour = this.hour.split("T");
       let splitted_hour_to_date = splitted_hour[0].split("-");
       let year = splitted_hour_to_date[0];
       let month = splitted_hour_to_date[1];
       let day = splitted_hour_to_date[2];
+      return day + "/" + month + "/" + year;
+    },
+    hourFormatted: function(){
+      let splitted_hour = this.hour.split("T");
       let splitted_time = splitted_hour[1].split(":");
-      this.dateFormatted = day + "/" + month + "/" + year;
-      this.hourFormatted = splitted_time[0]+":"+splitted_time[1];
-    },
+      return splitted_time[0]+":"+splitted_time[1];
+    }
+  },
+  methods:{
+    // Format the date and hour
+    // formatDateTime(){
+    //   let splitted_hour = this.hour.split("T");
+    //   let splitted_hour_to_date = splitted_hour[0].split("-");
+    //   let year = splitted_hour_to_date[0];
+    //   let month = splitted_hour_to_date[1];
+    //   let day = splitted_hour_to_date[2];
+    //   let splitted_time = splitted_hour[1].split(":");
+    //   this.dateFormatted = day + "/" + month + "/" + year;
+    //   this.hourFormatted = splitted_time[0]+":"+splitted_time[1];
+    // },
     // Get teams names instead of ids
-    async getTeamsNames(){
-      try{
-        const responseHome = await this.axios.get(
-          this.$root.store.serverDomain+"/teams/teamFullDetails/"+parseInt(this.hostTeam),{withCredentials: true}
-        );
-        this.hostTeamName = responseHome.data[0];
-        const responseAway = await this.axios.get(
-          this.$root.store.serverDomain+"/teams/teamFullDetails/"+parseInt(this.guestTeam),{withCredentials: true}
-        );
-        this.awayTeamName = responseAway.data[0];
-      }
-      catch{
-        console.log("error in getting home or away team's names in game preview")
-        console.log(error);
-      }
-    },
+  //   async getTeamsNames(){
+  //     try{
+  //       const responseHome = await this.axios.get(
+  //         this.$root.store.serverDomain+"/teams/teamFullDetails/"+parseInt(this.hostTeam),{withCredentials: true}
+  //       );
+  //       this.hostTeamName = responseHome.data[0];
+  //       const responseAway = await this.axios.get(
+  //         this.$root.store.serverDomain+"/teams/teamFullDetails/"+parseInt(this.guestTeam),{withCredentials: true}
+  //       );
+  //       this.awayTeamName = responseAway.data[0];
+  //     }
+  //     catch{
+  //       console.log("error in getting home or away team's names in game preview")
+  //       console.log(error);
+  //     }
+  //   },
+  // },
   },
   mounted(){
-    this.getTeamsNames();
-    this.formatDateTime();
+    // this.getTeamsNames();
+    //this.formatDateTime();
     console.log("game preview mounted");
   } 
 };

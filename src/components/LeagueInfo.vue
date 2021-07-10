@@ -1,6 +1,6 @@
 // league inforamtion componnet
 <template>
-    <div class="league-preview">
+    <div class="cardi">
       <b-card
       img-alt="Image"
       tag="article"

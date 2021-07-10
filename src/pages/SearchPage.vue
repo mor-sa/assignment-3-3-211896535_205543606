@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="title">Search Page</h1>
+  <div class="container" id="search-page-container">
+    <h1 class="title">Search</h1>
     <div id="search-bar">
       <b-input-group class="row"
         id="search-input">
@@ -23,24 +23,27 @@
     </div>
     <br>
     <div id="results-container">
+      <div v-if="noResults && searchQuery.length>1" id="no-results">
+        <h4>Could not find results.</h4>
+      </div>
       <div id="team-search-bar"
         v-show="searchTeams">
-        <b-button id="team-sort-teams-btn" variant="success" 
+        <b-button class="search-btn" id="team-sort-teams-btn" variant="success" 
           v-on:click="sortTeamsName">
           {{sortedTeamsName}}
         </b-button>
       </div>
       <div id="player-search-bar"
         v-show="searchPlayers">
-        <b-button id="players-sort-players-btn" variant="success"
+        <b-button class="search-btn" id="players-sort-players-btn" variant="success"
           v-on:click="sortPlayersName">
           {{sortedPlayersName}}
         </b-button>
-        <b-button id="players-sort-players-btn" variant="success"
+        <b-button class="search-btn" id="players-sort-players-btn" variant="success"
           v-on:click="sortPlayersTeams">
           {{sortedPlayersTeam}}
         </b-button>
-        <b-form-select id="filterResultsByTeams"
+        <b-form-select id="filterResultsByTeams" class="search-btn"
           v-model="currTeamFilter"
           :style="{width:'max-content'}"
           :prepend="null"
@@ -50,7 +53,7 @@
               {{team}}
             </option>
         </b-form-select>
-        <b-form-select id="filterResultsByPos"
+        <b-form-select id="filterResultsByPos" class="search-btn"
           v-model="currPosFilter"
           :style="{width:'max-content'}"
           v-on:change="filterPlayers">
@@ -59,7 +62,7 @@
               {{pos}}
             </option>
         </b-form-select>
-        <b-button id="players-reset-filters-players-btn" variant="success"
+        <b-button class="search-btn" id="players-reset-filters-players-btn" variant="success"
           v-on:click="resetPlayers"> Reset
         </b-button>
       </div>
@@ -107,6 +110,7 @@ export default {
         { value: 'teams', text: 'Teams' },
         { value: 'players', text: 'Players' },
       ],
+      noResults: false,
       sortedPlayersName:"Sort Players by Name A-Z",
       isClickedSortedPlayersName: true,
       sortedTeamsName:"Sort Team by Name A-Z",
@@ -138,13 +142,10 @@ export default {
     getLastSearch(){
       if(this.$root.store.username){
         console.log(this.$root.store.lastSearch);
-        if (this.$root.store.lastSearch==undefined){
-          console.log("GET FROM STORAGE");
+        if (this.$root.store.lastSearch===undefined){
           this.$root.store.getLastSearch();
         }
         if(this.$root.store.lastSearch){
-          console.log(this.$root.store.lastSearch);
-          console.log("THERE IS IN STORE");
           let last_search = this.$root.store.lastSearch;
           this.searchQuery = last_search.query;
           if(last_search.type == "teams"){
@@ -202,6 +203,7 @@ export default {
     // This function handles team search
     async teamsSearch(){
       try{
+        this.noResults = false;
         const response = await this.axios.get(
         this.$root.store.serverDomain+"/search/teams/"+this.searchQuery,{withCredentials: true}
         );
@@ -209,6 +211,9 @@ export default {
         this.teamResults= teams;
         if(this.teamResults.length > 0){
           this.searchTeams = true;
+        }
+        else{
+          this.noResults = true;
         }
         this.saveLastSearch();
       }
@@ -221,6 +226,7 @@ export default {
     // this function handles players search
     async playersSearch(){
       try{
+        this.noResults = false;
         const response = await this.axios.get(
           this.$root.store.serverDomain+"/search/players/"+this.searchQuery,{withCredentials: true}
         );
@@ -240,6 +246,9 @@ export default {
           })
           this.posForPlayer = Array.from(setPosForPlayer);
           this.posForPlayer.sort();
+        }
+        else{
+          this.noResults = true;
         }
         this.generalPlayerResults = this.playerResults;
         this.saveLastSearch();
@@ -391,6 +400,10 @@ export default {
 </script>
 
 <style scoped>
+  #search-page-container{
+    width: 100%;
+  }
+
   #search-input {
     margin-left: 20px; 
     width: max-content;
@@ -414,4 +427,38 @@ export default {
     justify-content: center;
     margin: 10px;
   }
+
+  .search-btn{
+    margin: 1em 0.5em;
+  }
+
+  #players-reset-filters-players-btn{
+    background-color:#4aaa65;
+  }
+
+  .search-btn{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:350;
+    color:#d9ebdf;
+    text-align:center;
+    transition: all 0.2s;
+    background-color:#64806c;
+  }
+  .search-btn:hover{
+    color:#000000;
+    background-color:#FFFFFF;
+  }
+  @media all and (max-width:30em){
+  .search-btn{
+    display:block;
+    margin:0.4em auto;
+  }
+}
 </style>

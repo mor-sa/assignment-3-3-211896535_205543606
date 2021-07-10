@@ -1,8 +1,7 @@
-// not works!
 <template>
  <div class="card">
   <img class="card-img-top" :src=teamLogo alt="Card image cap">
-  <b-button id="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add to Favorites</b-button>
+  <b-button class="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add to Favorites</b-button>
   <div class="card-body">
     <h5 class="card-title">{{teamName}}</h5>
     <ul class="list-group list-group-flush">
@@ -19,7 +18,7 @@
         :fullName="p.name" 
         :teamName="p.team_name" 
         :imageUrl="p.image" 
-        :position="p.position" 
+        :position="toString(p.position)" 
         :key="p.id"></PlayerPreview>
     </div>
     <li class="list-group-item">Past games:</li>
@@ -157,6 +156,12 @@ export default {
     background-color: beige;
   }
 
+  .card-body{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
   .card{
     width: 95%;
     display: 'flex';
@@ -170,15 +175,10 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  #fav-btn{
-    position: absolute;
+  .fav-btn{
+    /* position: absolute; */
+    top:0;
     right: 0;
     text-align: right;
   }
-/* 
- .card-group{
-    display: 'flex';
-    align-items: center;
-    justify-content: center;
-  } */
 </style>
