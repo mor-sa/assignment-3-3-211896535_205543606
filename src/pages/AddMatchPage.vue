@@ -26,12 +26,12 @@
         label="Match Date:"
         label-for="matchDate"
       >
-        <b-form-input
+        <b-form-datepicker
           id="matchDate"
           type="text"
           v-model="$v.form.matchDate.$model"
           :state="validateState('matchDate')"
-        ></b-form-input>
+        ></b-form-datepicker>
         <b-form-invalid-feedback>
           match date is required
         </b-form-invalid-feedback>
@@ -193,23 +193,24 @@ export default {
     async addMatch() {
       try {
         const response = await this.axios.post(
-          this.$root.store.serverDomain+"/login",
+          this.$root.store.serverDomain+"/matches/addMatch",
           {
-            username: this.form.username,
-            password: this.form.password
-          }
+            match_id: parseInt(this.form.matchId),
+            match_date: this.form.matchDate,
+            match_hour: this.form.matchHour,
+            home_team: this.form.homeTeam,
+            away_team: this.form.awayTeam,
+            referee_id: parseInt(this.form.matchReferee),
+            stadium: this.form.matchStadium
+          },{withCredentials: true}
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
-        this.$router.push("/");
+          this.$root.toast("Add Match", "Add Match Successfully", "success");
       } catch (err) {
         try{
           this.form.submitError = err.response.data.message;
         }
         catch{
-          this.$root.toast("Login", "NO CONNECTION", "danger");
+          this.$root.toast("Add Match", "NO CONNECTION", "danger");
         }
       }
     },

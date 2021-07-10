@@ -79,9 +79,12 @@ Vue.config.productionTip = false;
 // GLOBAL MAIN MEMORY
 // SAVE THINGS FOR ALL THE PROJECT LIKE USERNAME,DOMAIN
 const shared_data = {
-  // username: localStorage.username,
   serverDomain:"http://localhost:4000",
   username: undefined,
+  leagueDetails: undefined,
+  closetGame:undefined,
+  // allTeams: undefined,
+  lastSearch: {undefined},
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -91,10 +94,48 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+  },
+  saveLastSearch(last_search){
+    localStorage.setItem("lastSearch_query",last_search.query);
+    localStorage.setItem("lastSearch_type",last_search.type);
+    this.lastSearch = last_search;
+    console.log("last search saved, search query: "+last_search.query +" type: "+last_search.type);
+  },
+  getLastSearch(){
+    // console.log("TRYING TO DO");
+    // console.log(this.username);
+    // console.log(localStorage.getItem('lastSearch'));
+    if(this.username && localStorage.getItem('lastSearch_query') && localStorage.getItem('lastSearch_type')){
+      this.lastSearch.query = localStorage.getItem('lastSearch_query');
+      this.lastSearch.type = localStorage.getItem('lastSearch_type');
+      this.lastSearch.results = [];
+      console.log(this.lastSearch);
+    }
+  },
+  async updateLeagueDetails(){
+    try {
+      const response = await this.axios.get(
+        this.$root.store.serverDomain+"/league/getDetails",{withCredentials: true}
+      );
+      console.log(response.data);
+      const details = response.data;
+      this.$root.store.leagueDetails = details[0];
+      this.$root.store.closetGame = details[1];
+      this.$root.store.allTeams = details[0].all_teams;
+    } catch (error) {
+      console.log("error in update league details")
+      console.log(error);
+    }
+  },
+  // Check if a user is logged in
+  getLoggedInUser(){
+    if(localStorage.getItem('username')&& !this.username){
+      this.username = localStorage.getItem('username');
+    }
+    return;
   }
 };
 console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
@@ -115,6 +156,10 @@ new Vue({
         autoHideDelay: 3000
       });
     }
+  },
+  mounted(){
+    this.getLoggedInUser();
+    this.getLastSearch();
   },
   render: (h) => h(App)
 }).$mount("#app");

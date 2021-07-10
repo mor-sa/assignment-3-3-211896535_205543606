@@ -100,7 +100,7 @@ export default {
           {
             username: this.form.username,
             password: this.form.password
-          }
+          },{withCredentials: true}
         );
         //this.axios.defaults.withCredentials = false;
         console.log(response);
@@ -135,6 +135,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  max-width: 400px;
+  max-width: 400px;  
+  background-color:rgba(255, 255, 255, 0.562);
 }
 </style>

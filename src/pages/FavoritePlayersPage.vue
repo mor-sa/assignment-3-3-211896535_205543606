@@ -1,11 +1,12 @@
 // favorite players page works good!
 <template>
     <div>
+        <h1 id="title">Favorite Players</h1>
         <div v-if="$root.store.username">
-            <FavoritePlayers></FavoritePlayers>
+            <FavoritePlayers class="fav-players"></FavoritePlayers>
         </div>
         <div v-else>
-            not a user
+            <b>You have to be logged in as a user to view this page.</b>
         </div>
     </div>
 </template>
@@ -17,5 +18,4 @@ export default {
 }
 </script>
 <style>
-    
 </style>

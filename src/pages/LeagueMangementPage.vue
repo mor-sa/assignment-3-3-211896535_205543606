@@ -59,7 +59,8 @@ methods: {
     async updateFutureGames(){
       try {
         const response = await this.axios.get(
-        this.$root.store.serverDomain+"/matches/getFutureMatches");
+          this.$root.store.serverDomain+"/matches/getFutureMatches",{withCredentials: true}
+        );
         const futureGames = response.data;
         //const arr = futureGames.map((element) => element)
         console.log("X",futureGames);
@@ -74,7 +75,8 @@ methods: {
     async updatePastGames(){
       try {
         const response = await this.axios.get(
-        this.$root.store.serverDomain+"/matches/getPastMatches");
+          this.$root.store.serverDomain+"/matches/getPastMatches",{withCredentials: true}
+        );
         const pastGames = response.data;
         //const arr = futureGames.map((element) => element)
         //console.log(pastGames[0]);

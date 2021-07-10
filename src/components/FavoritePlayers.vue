@@ -28,19 +28,17 @@ export default {
   },
   methods: {
     async updatePlayers(){
-      //console.log("response");
       try {
         //should check cookies!
-        console.log(this.$root.store.serverDomain+"/users/favoritePlayers")
-        const response = await this.axios.get(
-          this.$root.store.serverDomain+"/users/favoritePlayers", {withCredentials: true});
-        const players = response.data;
-        this.players = [];
-        //console.log(response)
-        this.players.push(...players);
+          const response = await this.axios.get(
+            this.$root.store.serverDomain+"/users/favoritePlayers", {withCredentials: true});
+          const players = response.data;
+          this.players = [];
+          this.players.push(...players);
       } catch (error) {
-        console.log("error in update players")
-        console.log(error);
+          this.players = [];
+          console.log("error in update players")
+          console.log(error);
       }
     }
   }, 
@@ -51,4 +49,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  .fav-player{
+    height:200px;
+    width:250px;
+  }
+</style>

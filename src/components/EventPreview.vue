@@ -2,14 +2,14 @@
 <template>
   <div class="event-preview">
     <div :title="id" class="event-title">
-      <b>event Id:</b> {{ id }}
+      <b>Event Id:</b> {{ id }}
     </div>
     <ul class="event-content">
-      <li> id: {{ id }}</li>
-      <li> date: {{ date }}</li>
-      <li> hour: {{ hour }}</li>
-      <li> minute: {{ minute }}</li>
-      <li> description: {{description}}</li>
+      <li> <b>Date:</b> {{ dateFormatted }}</li>
+      <li> <b>Hour:</b> {{ hourFormatted }}</li>
+      <li> <b>Minute:</b> {{ minute }}</li>
+      <li> <b>Description:</b> {{description}}</li>
+      <br>
     </ul>
   </div>
 </template>
@@ -38,8 +38,28 @@ export default {
         type: String,
         required: true
       }
-  }, 
+  },
+    data() {
+    return {
+      dateFormatted: undefined,
+      hourFormatted: undefined,
+    }
+  },
+  methods:{
+    // Format the date and hour
+    formatDateTime(){
+      let splitted_hour = this.hour.split("T");
+      let splitted_hour_to_date = splitted_hour[0].split("-");
+      let year = splitted_hour_to_date[0];
+      let month = splitted_hour_to_date[1];
+      let day = splitted_hour_to_date[2];
+      let splitted_time = splitted_hour[1].split(":");
+      this.dateFormatted = day + "/" + month + "/" + year;
+      this.hourFormatted = splitted_time[0]+":"+splitted_time[1];
+    },
+  },
   mounted(){
+    this.formatDateTime();
     console.log("event preview mounted")
   } 
 };
@@ -48,8 +68,8 @@ export default {
 <style>
 .event-preview {
   display: inline-block;
-  width: 250px;
-  height: 200px;
+  width: 300px;
+  height: max-content;
   position: relative;
   margin: 10px 10px;
   border-style: solid;
@@ -69,6 +89,9 @@ export default {
   overflow: hidden;
 }
 
+.event-content{
+  list-style: none;
+}
 
 
 </style>

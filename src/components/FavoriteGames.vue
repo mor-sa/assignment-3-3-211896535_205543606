@@ -3,12 +3,13 @@
   <div>
     <GamePreview
       v-for="g in games"
-      :id="g.id" 
+      :id="g.match_id" 
       :hostTeam="g.home_team" 
       :guestTeam="g.away_team" 
       :date="g.match_date" 
       :hour="g.match_hour"
-      :stadium="g.stadium" 
+      :stadium="g.stadium"
+      :referee="g.referee_id"
       :key="g.id"></GamePreview>
   </div>
 </template>
@@ -31,9 +32,10 @@ export default {
       console.log("response");
       try {
         const response = await this.axios.get(
-          this.$root.store.serverDomain+"/users/favoriteMatches",
+          this.$root.store.serverDomain+"/users/favoriteMatches", {withCredentials: true}
         );
         const games = response.data;
+        console.log(games);
         this.games = [];
         this.games.push(...games);
         console.log(games);

@@ -1,11 +1,12 @@
 // favorite Teams page, works good!
 <template>
     <div>
+        <h1 id="title">Favorite Teams</h1>
         <div v-if="$root.store.username">
         <FavoriteTeams></FavoriteTeams>
         </div>
         <div v-else>
-            <b> not a user </b>
+            <b>You have to be logged in as a user to view this page.</b>
         </div>
     </div>
 </template>

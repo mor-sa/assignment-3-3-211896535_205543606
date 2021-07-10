@@ -1,7 +1,10 @@
 // team page, works good!
 <template>
     <div>
-        <TeamFullDetails :id='$route.params.id'></TeamFullDetails>
+        <TeamFullDetails
+            :id='$route.params.id'
+            >
+        </TeamFullDetails>
     </div>
 </template>
 <script>
@@ -10,6 +13,7 @@ export default {
   components: { TeamFullDetails },
     name: 'TeamPage'
 }
+
 </script>
 <style>
     

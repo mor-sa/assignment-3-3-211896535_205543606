@@ -4,12 +4,12 @@
     <h1 class="title" center>Main Page</h1>
     <div class="row">
           <div class="col">
-              <LeagueInfo
+              <LeagueInfo v-if="leagueDetails!=undefined"
                 :leagueName ="leagueDetails.league_name"
                 :seasonName ="leagueDetails.current_season_name"
                 :stageName ="leagueDetails.current_stage_name">
               </LeagueInfo>
-              <GamePreview 
+              <GamePreview v-if="closetGame!=undefined"
                 :id="closetGame.match_id" 
                 :hostTeam ="closetGame.home_team"
                 :guestTeam ="closetGame.away_team" 
@@ -20,7 +20,7 @@
               </GamePreview>
           </div>
           <div class="col">
-              <LoginPage v-if="!$root.store.username"></LoginPage>
+              <LoginPage id="login-component" v-if="!$root.store.username"></LoginPage>
               <div v-else>
                 <div v-if="favoriteGames.length>0">
                   <h1 class="title" center>My Games:</h1>
@@ -49,16 +49,16 @@ import LoginPage from "../pages/LoginPage";
 import GamePreview from '../components/GamePreview.vue';
 export default {
   components: {
-    LeagueInfo, 
-    LoginPage, 
+    LoginPage,
+    LeagueInfo,
     GamePreview
   },
   data() {
     return {
-      closetGame:undefined,
-      leagueDetails: undefined,
+      closetGame: this.$root.store.closetGame,
+      leagueDetails: this.$root.store.leagueDetails,
       favoriteGames:[]
-    }
+      }
   },
   watch: {
     '$root.store.username': function() {
@@ -66,22 +66,11 @@ export default {
     }
   },
   methods: {
-    async upateLeagueDetails(){
-      try {
-        const response = await this.axios.get(
-        this.$root.store.serverDomain+"/league/getDetails");
-        const details = response.data;
-        this.leagueDetails = details[0];
-        this.closetGame = details[1];
-      } catch (error) {
-        console.log("error in update future games")
-        console.log(error);
-      }
-    },
     async update3Favorite(){
       try {
         const response = await this.axios.get(
-        this.$root.store.serverDomain+"/users/upTo3favoriteMatches");
+          this.$root.store.serverDomain+"/users/upTo3favoriteMatches",{withCredentials: true}
+        );
         const games = response.data;
         this.favoriteGames.push(...games);
       } catch (error) {
@@ -90,10 +79,12 @@ export default {
       }
     }
   },
+  created(){
+  },
   mounted(){
     console.log("league main pagemounted");
-    this.upateLeagueDetails(); 
     this.update3Favorite();
+    
   }
 };
 </script>

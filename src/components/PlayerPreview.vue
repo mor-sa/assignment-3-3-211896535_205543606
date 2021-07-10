@@ -1,15 +1,13 @@
 // player preview component works
 <template>
   <div class="card" style="width: 18rem;">
-  <router-link :to="{ name: 'player', params: { id: id }}">  <img class="card-img-top" :src=imageUrl  alt="Card image cap" > </router-link>
-  <div class="card-body">
-    <h5 class="card-title">Player preview</h5>
-    <p class="card-text">some information about player</p>
-    <ul class="list-group list-group-flush">
-    <li class="list-group-item" > <router-link :to="{ name: 'player', params: { id: id }}">player name: {{fullName}}</router-link></li>
-    <li class="list-group-item">player's team: {{teamName}}</li>
-    <li class="list-group-item">player position: {{position}}</li>
-  </ul>
+    <router-link :to="{ name: 'player', params: { id: id }}"><img class="card-img-top" :src=imageUrl  alt="Card image cap" > </router-link>
+    <div class="card-body">
+      <router-link :to="{ name: 'player', params: { id: id }}"><h5 class="card-title">{{fullName}}</h5></router-link>
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">Team: {{teamName}}</li>
+      <li class="list-group-item">Position number: {{position}}</li>
+    </ul>
   </div>
 </div>
 </template>
@@ -48,5 +46,20 @@ export default {
 </script>
 
 <style>
+  /* .card{
+    max-width: 24em;
+    min-width: 24em;
+  } */
+  .card-img-top{
+    max-width: 200px;
+    max-height: 250px;
+  }
 
+  .card{
+    display: inline-block;
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 220px;
+    margin: 10px 10px;
+}
 </style>

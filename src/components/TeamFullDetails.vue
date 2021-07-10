@@ -1,59 +1,59 @@
 // not works!
 <template>
- <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="https://www.gstatic.com/webp/gallery/1.jpg"  alt="Card image cap" >
+ <div class="card">
+  <img class="card-img-top" :src=teamLogo alt="Card image cap">
+  <b-button id="fav-btn" pill variant="outline-danger" @click="addToFavorites" :disabled="alreadyInFavorites">Add to Favorites</b-button>
   <div class="card-body">
-    <h5 class="card-title">Team Full details</h5>
-    <p class="card-text">some information about team</p>
+    <h5 class="card-title">{{teamName}}</h5>
     <ul class="list-group list-group-flush">
-    <li class="list-group-item">team id: {{id}}</li>
-    <li class="list-group-item">team's coach:</li>
+    <li class="list-group-item">Id: {{id}}</li>
+    <li class="list-group-item">Coach:</li>
 
     <!-- <CoachFullDetails :id="coach.id"> <CoachFullDetails> -->
 
-    <li class="list-group-item">teams's players:</li>
-    <div class="card-group">
-    <PlayerPreview
-      v-for="p in players"
-      :id="p.id" 
-      :fullName="p.name" 
-      :teamName="p.team_name" 
-      :imageUrl="p.image" 
-      :position="p.position" 
-      :key="p.id"></PlayerPreview>
-  </div>
-
-    <li class="list-group-item">past games:</li>
-        <div>
+    <li class="list-group-item">Players:</li>
+    <div class="row">
+      <PlayerPreview class="playerss"
+        v-for="p in players"
+        :id="p.id" 
+        :fullName="p.name" 
+        :teamName="p.team_name" 
+        :imageUrl="p.image" 
+        :position="p.position" 
+        :key="p.id"></PlayerPreview>
+    </div>
+    <li class="list-group-item">Past games:</li>
+    <div>
     <GameFullDetails
       v-for="g in pastMatches"
-      :id="g.id" 
+      :id="g.match_id" 
       :hostTeam="g.home_team" 
       :guestTeam="g.away_team" 
       :date="g.match_date" 
       :hour="g.match_hour"
       :stadium="g.stadium"
       :result="g.result"
-      :events="g.events" 
+      :events="g.events"
+      :referee="g.referee_id"
       :key="g.id"></GameFullDetails>
   </div>
-    <li class="list-group-item">future games:</li>
+    <li class="list-group-item">Future games:</li>
 
     <div>
     <GamePreview
       v-for="g in futureMatches"
-      :id="g.id" 
+      :id="g.match_id" 
       :hostTeam="g.home_team" 
       :guestTeam="g.away_team" 
       :date="g.match_date" 
       :hour="g.match_hour"
-      :stadium="g.stadium" 
+      :stadium="g.stadium"
+      :referee="g.referee_id"
       :key="g.id"></GamePreview>
   </div>
   
   </ul>
   </div>
-    <b-button pill variant="outline-danger" @click="addToFavorites" :disabled="!alreadyInFavorites">add to favorites</b-button>
 </div>
 </template>
 
@@ -75,10 +75,12 @@ export default {
       id: {
         type: Number,
         required: true
-      }
+      },
   }, 
   data() {
     return {
+      teamName: undefined,
+      teamLogo: undefined,
       players: [],
       coach: undefined,
       pastMatches: [],
@@ -91,20 +93,38 @@ export default {
       console.log("response");
       try {
         const response = await this.axios.get(
-          this.$root.store.serverDomain+"/teams/teamFullDetails/"+this.id,
+          this.$root.store.serverDomain+"/teams/teamFullDetails/"+this.id, {withCredentials: true}
         );
         const details = response.data;
-        this.players=details[0];
-        this.coach=details[1];
-        this.pastMatches=details[2];
-        this.futureMatches=details[3];
+        this.teamName = details[0];
+        this.teamLogo = details[1];
+        this.players=details[2];
+        this.coach=details[3];
+        this.pastMatches=details[4];
+        this.futureMatches=details[5];
       } catch (error) {
         console.log("error in update team full details")
         console.log(error);
       }
     },
-    async checkIfInFavorites(){
-      this.alreadyInFavorites=true;
+     async checkIfDisableFavorites(){
+      // not a user
+      if(!this.$root.store.username || !this.id){
+        this.alreadyInFavorites = true;
+      }
+      // user logged in
+      else{
+        // get users favorites and check if the team's already in
+        const response = await this.axios.get(
+          this.$root.store.serverDomain+"/users/favoriteTeams", {withCredentials: true}
+        );
+        this.alreadyInFavorites = false;
+        response.data.forEach((favTeam) => {
+          if (favTeam.id == this.id){
+            this.alreadyInFavorites = true;
+          }
+        });
+      }
     },
     async addToFavorites(){
       try {
@@ -112,10 +132,10 @@ export default {
           this.$root.store.serverDomain+"/users/favoriteTeams",
           {
             teamId: this.id
-          }
+          },{withCredentials: true}
         );
-        console.log(response);
         this.$root.toast("Favorite teams", response.data, "success");
+        this.alreadyInFavorites = true;
       } 
       catch (err) {
         //this.form.submitError = err.response.data.message;
@@ -126,11 +146,39 @@ export default {
   mounted(){
     console.log("full details team mounted");
     this.updateTeam(); 
-    this.checkIfInFavorites();
+    this.checkIfDisableFavorites();
   }
 };
 </script>
 
-<style>
+<style scoped>
+ 
+   body{
+    background-color: beige;
+  }
 
+  .card{
+    width: 95%;
+    display: 'flex';
+    align-items: center;
+    justify-content: center;
+  }
+  .playerss{
+    /* display: inline-block;
+    position: relative; */
+    display: 'flex';
+    align-items: center;
+    justify-content: center;
+  }
+  #fav-btn{
+    position: absolute;
+    right: 0;
+    text-align: right;
+  }
+/* 
+ .card-group{
+    display: 'flex';
+    align-items: center;
+    justify-content: center;
+  } */
 </style>

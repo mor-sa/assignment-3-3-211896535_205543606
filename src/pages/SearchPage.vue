@@ -1,20 +1,19 @@
 <template>
   <div>
     <h1 class="title">Search Page</h1>
-    <div id="search-bar" class="row">
-      <b-form-select 
-        v-model="category"
-        :options="catOptions"
-        :style="{width:'max-content'}">
-      </b-form-select>
-      <b-input-group
-        prepend="Search Query:"
+    <div id="search-bar">
+      <b-input-group class="row"
         id="search-input">
+        <b-form-select
+          v-model="category"
+          :options="catOptions"
+          :style="{width:'max-content'}">
+        </b-form-select>
         <b-form-input
-          v-model="searchQuery">
-          </b-form-input>
+            id="search-input-field" v-model="searchQuery" autocomplete="off" placeholder="Search Query">
+        </b-form-input>
         <b-input-group-append>
-          <b-button variant="success" 
+          <b-button id="search-btn" variant="success" 
             :disabled="disableButton"
             v-on:click="handleSearch">
             Search
@@ -22,12 +21,8 @@
         </b-input-group-append>
       </b-input-group>
     </div>
+    <br>
     <div id="results-container">
-      <nav title="Sidebar" bg-variant="dark" text-variant="light" shadow>
-
-      </nav>
-      <br/>
-      Your search Query: {{ searchQuery }}
       <div id="team-search-bar"
         v-show="searchTeams">
         <b-button id="team-sort-teams-btn" variant="success" 
@@ -48,7 +43,9 @@
         <b-form-select id="filterResultsByTeams"
           v-model="currTeamFilter"
           :style="{width:'max-content'}"
+          :prepend="null"
           v-on:change="filterPlayers">
+            <option value="null">Filter by Team</option>
             <option v-for="team in teamsForPlayer" :key="team">
               {{team}}
             </option>
@@ -57,6 +54,7 @@
           v-model="currPosFilter"
           :style="{width:'max-content'}"
           v-on:change="filterPlayers">
+            <option value="null">Filter by Position</option>
             <option v-for="pos in posForPlayer" :key="pos">
               {{pos}}
             </option>
@@ -94,6 +92,8 @@
 <script>
 import TeamPreview from '../components/TeamPreview.vue';
 import PlayerPreview from '../components/PlayerPreview.vue';
+import Autocomplete from '@trevoreyre/autocomplete-vue';
+
 export default {
   name: "Search",
   components: { 
@@ -122,7 +122,7 @@ export default {
       posForPlayer: [],
       teamsForPlayer: [],
       currTeamFilter: null,
-      currPosFilter: null
+      currPosFilter: null,
     };
   },
   computed: {
@@ -134,6 +134,55 @@ export default {
     }
   },
   methods:{
+    // Getting last search from memory and local storage
+    getLastSearch(){
+      if(this.$root.store.username){
+        console.log(this.$root.store.lastSearch);
+        if (this.$root.store.lastSearch==undefined){
+          console.log("GET FROM STORAGE");
+          this.$root.store.getLastSearch();
+        }
+        if(this.$root.store.lastSearch){
+          console.log(this.$root.store.lastSearch);
+          console.log("THERE IS IN STORE");
+          let last_search = this.$root.store.lastSearch;
+          this.searchQuery = last_search.query;
+          if(last_search.type == "teams"){
+            this.searchTeams = true;
+            this.teamResults = last_search.results;
+            this.category = last_search.type;
+          }
+          else if(last_search.type == "players"){
+            this.searchPlayers = true;
+            this.generalPlayerResults = last_search.results;
+            this.playerResults = last_search.results;
+            this.category = last_search.type;
+          }
+        }
+      }
+    },
+    // save last search in memory and local storage
+    saveLastSearch(){
+      if(this.$root.store.username){
+        let search_type;
+        let search_results;
+        if(this.searchTeams == true){
+          search_type = "teams";
+          search_results = this.teamResults;
+        }
+        else if(this.searchPlayers == true){
+          search_type = "players";
+          search_results = this.generalPlayerResults;
+        }
+        let last_search = {
+          query: this.searchQuery,
+          type: search_type,
+          results: search_results
+        }
+        this.$root.store.saveLastSearch(last_search);
+      }
+    },
+    // This function commits the search
     handleSearch(){
       this.searchTeams = false;
       this.searchPlayers = false;
@@ -150,16 +199,18 @@ export default {
         this.playersSearch();
       }
     },
+    // This function handles team search
     async teamsSearch(){
       try{
         const response = await this.axios.get(
-        this.$root.store.serverDomain+"/search/teams/"+this.searchQuery
+        this.$root.store.serverDomain+"/search/teams/"+this.searchQuery,{withCredentials: true}
         );
         const teams = response.data;
         this.teamResults= teams;
         if(this.teamResults.length > 0){
           this.searchTeams = true;
         }
+        this.saveLastSearch();
       }
       catch(err){
         this.searchTeams = false;
@@ -167,10 +218,11 @@ export default {
         console.log(error);
       }
     },
+    // this function handles players search
     async playersSearch(){
       try{
         const response = await this.axios.get(
-          this.$root.store.serverDomain+"/search/players/"+this.searchQuery
+          this.$root.store.serverDomain+"/search/players/"+this.searchQuery,{withCredentials: true}
         );
         const players = response.data;
         this.playerResults = players;
@@ -190,12 +242,14 @@ export default {
           this.posForPlayer.sort();
         }
         this.generalPlayerResults = this.playerResults;
+        this.saveLastSearch();
       }
       catch(err){
         console.log("error in search players")
         console.log(error);
       }
     },
+    // This function decides how to sort the team results
     sortTeamsName(){
       if(this.isClickedSortedTeamsName){
         this.isClickedSortedTeamsName = false;
@@ -208,6 +262,7 @@ export default {
         this.sortTeamsNameZA();
       }
     },
+    // This function sorts the team results by name A-Z
     sortTeamsNameAZ(){
       this.teamResults.sort((teamA, teamB)=>{
         if(teamA.team_name.toLowerCase() > teamB.team_name.toLowerCase()){
@@ -219,6 +274,7 @@ export default {
         return 0;
       });
     },
+    // This function sorts the team results by name Z-A
     sortTeamsNameZA(){
      this.teamResults.sort((teamA, teamB)=>{
         if(teamA.team_name.toLowerCase() > teamB.team_name.toLowerCase()){
@@ -230,6 +286,7 @@ export default {
         return 0;
       });
     },
+    // This function decides how to sort the players results by their names
     sortPlayersName(){
       if(this.isClickedSortedPlayersName){
         this.isClickedSortedPlayersName = false;
@@ -242,6 +299,7 @@ export default {
         this.sortPlayersNameZA();
       }
     },
+    // This function sorts the player results by name A-Z
     sortPlayersNameAZ(){
       this.playerResults.sort((playerA, playerB)=>{
         if(playerA.player_full_name.toLowerCase() > playerB.player_full_name.toLowerCase()){
@@ -253,6 +311,7 @@ export default {
         return 0;
       });
     },
+    // This function sorts the player results by name Z-A
     sortPlayersNameZA(){
       this.playerResults.sort((playerA, playerB)=>{
         if(playerA.player_full_name.toLowerCase() > playerB.player_full_name.toLowerCase()){
@@ -264,6 +323,7 @@ export default {
         return 0;
       });
     },
+    // This function decides how to sort the players results by their teams
     sortPlayersTeams(){
       if(this.isClickedSortedPlayersTeam){
         this.isClickedSortedPlayersTeam = false;
@@ -276,6 +336,7 @@ export default {
         this.sortPlayersTeamZA();
       }
     },
+    // This function sorts the player results by team name A-Z
     sortPlayersTeamAZ(){
       this.playerResults.sort((playerA, playerB)=>{
         if(playerA.player_team_name.toLowerCase() > playerB.player_team_name.toLowerCase()){
@@ -287,6 +348,7 @@ export default {
         return 0;
       });
     },
+    // This function sorts the player results by team name Z-A
     sortPlayersTeamZA(){
       this.playerResults.sort((playerA, playerB)=>{
         if(playerA.player_team_name.toLowerCase() > playerB.player_team_name.toLowerCase()){
@@ -298,9 +360,9 @@ export default {
         return 0;
       });
     },
+    // This function filters the players
     filterPlayers(){
       this.playerResults = this.generalPlayerResults;
-      console.log("FILTER RESULTS");
       if(this.currTeamFilter){
         this.playerResults = this.playerResults.filter(player => player.player_team_name == this.currTeamFilter);
       }
@@ -308,19 +370,48 @@ export default {
         this.playerResults = this.playerResults.filter(player => player.player_position == this.currPosFilter);
       }
     },
+    // this function resets the filters
     resetPlayers(){
       this.playerResults = this.generalPlayerResults;
       this.currTeamFilter = null;
       this.currPosFilter = null;
-    }
+    },
+    
+  },
+  mounted(){
+    this.allTeamsNames = this.$root.store.allTeams;
+    this.getLastSearch();
+  },
+  watch:{
+    searchQuery(){
+      this.handleSearch();
+    },
   }
 }
 </script>
 
 <style scoped>
+  #search-input {
+    margin-left: 20px; 
+    width: max-content;
+  }
 
-#search-input {
-  margin-left: 20px; 
-  width: 500px; 
-}
+  #search-input-field{
+    width:15em;
+  }
+
+  #search-bar{
+    display: 'flex-col';
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
+  }
+
+  #results-container{
+    display: 'flex';
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
 </style>

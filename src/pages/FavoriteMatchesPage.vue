@@ -1,11 +1,12 @@
 // favorite games page, works good!
 <template>
     <div>
+        <h1 id="title">Favorite Games</h1>
         <div v-if="$root.store.username">
             <FavoriteGames></FavoriteGames>
         </div>
         <div v-else>
-            not a user
+            <b>You have to be logged in as a user to view this page.</b>
         </div>
     </div>
 </template>

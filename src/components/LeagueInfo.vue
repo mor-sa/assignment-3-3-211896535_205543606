@@ -19,7 +19,8 @@
 
 <script>
 export default {
- props: {
+  name: "leagueInfo",
+  props: {
       leagueName: {
         type: String,
         required: true
@@ -42,7 +43,7 @@ export default {
   width: 250px;
   height: 200px;
   position: relative;
-  margin: 10px 10px;
+  /* margin: 10px 10px; */
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;

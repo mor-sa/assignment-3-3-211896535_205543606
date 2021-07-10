@@ -1,11 +1,12 @@
-// favorite teams page should fix also in server side or something
+  // favorite teams page should fix also in server side or something
 <template>
   <div>
       <div class="card-group">
     <TeamPreview
       v-for="t in teams"
       :id="t.id" 
-      :teamName="t.teamName" 
+      :teamName="t.name"
+      :teamLogo="t.logo"
       :key="t.id"></TeamPreview>
   </div>
   </div>
@@ -28,11 +29,12 @@ export default {
       console.log("response");
       try {
         const response = await this.axios.get(
-          this.$root.store.serverDomain+"/users/favoriteTeams",
+          this.$root.store.serverDomain+"/users/favoriteTeams", {withCredentials: true}
         );
         const teams = response.data;
         this.teams = [];
         this.teams.push(...teams);
+        console.log(teams);
         console.log(response);
       } catch (error) {
         console.log("error in update teams")

@@ -302,7 +302,8 @@ export default {
             password: this.form.password,
             email: this.form.email,
             image_url: this.form.imageUrl
-          })
+          },{withCredentials: true}
+        );
         this.$root.toast("Register", response.data, "success");
         this.$router.push("/login");
         //console.log(response);
